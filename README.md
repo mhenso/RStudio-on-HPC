@@ -50,6 +50,7 @@ ssh user-id@hpc.domain -L 52673:cpu-25-16.localdomain:52673 # this number will r
 
 # Succesful login
 Congratulation you run rstudio rserver on an HPC
+
 ![](docs/rstudio.png)
 
 
