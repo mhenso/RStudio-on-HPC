@@ -40,7 +40,7 @@ singularity run \
 # As mention on the stdout you need to open new terminal, ssh with your user id and password
 ssh user-id@hpc.domain -L 52673:cpu-25-16.localdomain:52673 # this number will randomly generated according to your node and session
 
-# after you login you need to open new web browser and use RStudio username and password from stdout
+# after you login you need to open new web browser and use the information from the stdout and sign in
 
 ```
 
@@ -49,7 +49,7 @@ ssh user-id@hpc.domain -L 52673:cpu-25-16.localdomain:52673 # this number will r
 ![](docs/web_browser_edited.png)
 
 # Succesful login
-
+Congratulation you run rstudio rserver on an HPC
 ![](docs/rstudio.png)
 
-Congratulation you run rstudio rserver on an HPC
+
