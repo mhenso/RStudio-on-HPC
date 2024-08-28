@@ -54,3 +54,16 @@ Congratulation you run rstudio rserver on an HPC
 ![](docs/rstudio.png)
 
 
+# Prepare your own SIF file
+## Install singularity
+
+## Build SIF file
+Use def file, auth and ?? files to build
+singularity build --fakeroot name_container.sif definition_file.def
+```bash
+# for example
+singularity build --fakeroot cento_rstudio.sif rserver.def
+```
+
+
+
