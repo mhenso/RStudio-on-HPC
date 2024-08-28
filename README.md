@@ -3,6 +3,7 @@ Build a singularity container to run rstudio server on a high performance comput
 
 # SIF file
 Pre-compiled singularity image file can be dowloaded this [link](https://drive.google.com/file/d/15tTzy15GPCWZFIxqbT3NvQrqk9ai2E-N/view?usp=sharing)
+The sha256sum of Cent9_rstudio_server.sif is (here)[docs/sha25sum.txt]
 
 # How to run Rtudio on an HPC cluster
 ## SSH
