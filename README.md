@@ -1,4 +1,4 @@
-# rstudio_server_hpc
+# RStudio_Server
 Build a singularity container to run rstudio server on a high performance computing (HPC) cluster
 
 # SIF file
