@@ -76,17 +76,17 @@ from: quay.io/centos/centos:stream9
 	yum -y update && yum -y install libgcrypt-devel.x86_64 openblas.x86_64 openblas-devel.x86_64 
 	
 	# Install software needed for vignette building and package checks
-  yum -y update &&
+	yum -y update &&
 	yum -y install pandoc.x86_64 qpdf.x86_64
 	
-  # Small utilities usefult for command line and troubleshooting
-  yum -y install sudo.x86_64 strace.x86_64 bash-completion.noarch
+	# Small utilities usefult for command line and troubleshooting
+	yum -y install sudo.x86_64 strace.x86_64 bash-completion.noarch
 	
-  # Needed for the ss command to find which port to open
-  yum -y install iproute.x86_64 iproute-devel.x86_64
+	# Needed for the ss command to find which port to open
+	yum -y install iproute.x86_64 iproute-devel.x86_64
 	
-  # For troubleshooting by running xeyes
-  yum -y install xorg-x11-utils.x86_64 xorg-x11-xauth.x86_64 xorg-x11-server-devel.x86_64 \
+	# For troubleshooting by running xeyes
+	yum -y install xorg-x11-utils.x86_64 xorg-x11-xauth.x86_64 xorg-x11-server-devel.x86_64 \
 	libX11-devel.x86_64 libXt-devel.x86_64
 	
 	yum -y install libdeflate-devel texinfo-tex texinfo texlive-latex-fonts.noarch texlive-fontawesome.noarch firefox-x11 evince
@@ -96,7 +96,7 @@ from: quay.io/centos/centos:stream9
 	rm texlive-inconsolata-svn54512-59.amzn2023.0.2.noarch.rpm
 	
 	# Install the latest R manually
-  # yum -y update && yum -y install R &&
+  	# yum -y update && yum -y install R &&
 	wget https://cran.r-project.org/src/base/R-4/R-4.4.1.tar.gz
 	tar -xzf R-4.4.1.tar.gz
 	cd R-4.4.1 &&
@@ -106,8 +106,7 @@ from: quay.io/centos/centos:stream9
 	make -j 10 && make install &&
 	cd ..
 	rm -r R-4.4.*
-                  
-                  
+                   
 	# Install RStudio server manually
 	yum -y update &&
 	wget https://download2.rstudio.org/server/rhel9/x86_64/rstudio-server-rhel-2024.04.2-764-x86_64.rpm # wget https://download2.rstudio.org/server/rhel8/x86_64/rstudio-server-rhel-2024.04.1-748-x86_64.rpm
