@@ -1,0 +1,146 @@
+bootstrap: docker
+from: quay.io/centos/centos:stream9
+
+
+%labels
+	Author Hendra Sihaloho
+	Email hendra.sihaloho@ttu.edu
+	-Centos stream9
+	-R version 4.4.1 (2024-06-14, Race for Your Life)
+	-RStudio Server v2024.04.2+764
+	Modified from https://github.com/oist/BioinfoUgrp/tree/master/RStudio
+		
+%runscript
+  exec launch_rserver "${@}"
+
+%apprun R
+  exec R "${@}"
+
+%apprun Rscript
+  exec Rscript "${@}"
+
+%apprun default
+  exec "${@}"
+
+%environment
+  # R and Rstudio server
+  export PATH=/usr/lib/rstudio-server/bin:${PATH}
+  export SHELL=/bin/bash
+  export LC_ALL=en_US.UTF-8
+  export LANG=en_US.UTF-8
+  export LANGUAGE=en_US.UTF-8
+  export KEYMAP=us
+  
+  
+%setup
+  install -Dv \
+    rstudio_auth.sh \
+    ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/rstudio_auth
+
+  install -Dv \
+    launch_rserver.sh \
+    ${SINGULARITY_ROOTFS}/usr/lib/rstudio-server/bin/launch_rserver
+
+%post
+	# Update the image
+	yum -y update &&
+	yum -y install epel-release epel-next-release # yum -y install epel-release
+	yum -y install 'dnf-command(config-manager)'
+	yum -y update &&
+	
+	yum config-manager --set-enabled crb
+	yum -y update && yum -y install readline.x86_64 readline-devel.x86_64 nano.x86_64 &&
+	
+	yum -y update && yum -y install langpacks-en.noarch glibc-all-langpacks glibc-locale-source.x86_64 &&
+	yum -y update && DEBIAN_FRONTEND="noninteractive" TZ="America/Chicago" yum install -y tzdata.noarch
+
+	yum -y update && yum -y install lsb_release.noarch clang.x86_64 clang-devel.x86_64 && # redhat-lsb-core.x86_64
+	yum -y update && yum -y install make.x86_64 cmake.x86_64 wget.x86_64 htop.x86_64 &&
+
+	yum -y update &&
+	yum -y install gcc.x86_64 gcc-gfortran.x86_64 libgfortran.x86_64 lbzip2.x86_64 zlib.x86_64 zlib-devel.x86_64 \
+	pcre2.x86_64 pcre2-devel.x86_64 libcurl-devel.x86_64 libcanberra.x86_64 libxml2.x86_64 libxml2-devel.x86_64 \
+	libcanberra-devel.x86_64 libcanberra-gtk3.x86_64 openssl-libs.x86_64 openssl-devel.x86_64 pigz &&
+
+	yum -y update &&
+	yum -y install libpng-devel.x86_64 libjpeg-turbo-devel.x86_64 freetype-devel.x86_64 libtiff-devel.x86_64 \
+	cairo-devel.x86_64 libicu-devel.x86_64 libxkbcommon.x86_64 libxkbcommon-devel.x86_64 texlive.x86_64 hostname.x86_64 &&
+	
+	#-- need for ANCOMBC
+	yum -y update && 
+	yum -y install gsl.x86_64 gsl-devel.x86_64 gmp.x86_64 gmp-devel.x86_64 mpfr.x86_64 mpfr-devel.x86_64
+	#==
+    
+	yum -y install debootstrap.noarch squashfs-tools.x86_64 libuuid-devel.x86_64 libseccomp-devel.x86_64 &&
+	yum -y update && yum -y install gpgme-devel cryptsetup-libs.x86_64 cryptsetup-devel
+	yum -y update && yum -y install libgcrypt-devel.x86_64 openblas.x86_64 openblas-devel.x86_64 
+	
+	# Install software needed for vignette building and package checks
+  yum -y update &&
+	yum -y install pandoc.x86_64 qpdf.x86_64
+	
+  # Small utilities usefult for command line and troubleshooting
+  yum -y install sudo.x86_64 strace.x86_64 bash-completion.noarch
+	
+  # Needed for the ss command to find which port to open
+  yum -y install iproute.x86_64 iproute-devel.x86_64
+	
+  # For troubleshooting by running xeyes
+  yum -y install xorg-x11-utils.x86_64 xorg-x11-xauth.x86_64 xorg-x11-server-devel.x86_64 \
+	libX11-devel.x86_64 libXt-devel.x86_64
+	
+	yum -y install libdeflate-devel texinfo-tex texinfo texlive-latex-fonts.noarch texlive-fontawesome.noarch firefox-x11 evince
+	wget https://cdn.amazonlinux.com/al2023/core/guids/9cf1057036ef7d615de550a658447fad88617805da0cfc9b854ba0fb8a668466/x86_64/../../../../blobstore/162fbd80fce2fa9581c3aeb4d3d09bf645b672792cdf24679bce9777dae5b48e/texlive-inconsolata-svn54512-59.amzn2023.0.2.noarch.rpm
+	
+	yum -y install texlive-inconsolata-svn54512-59.amzn2023.0.2.noarch.rpm
+	rm texlive-inconsolata-svn54512-59.amzn2023.0.2.noarch.rpm
+	
+	# Install the latest R manually
+  # yum -y update && yum -y install R &&
+	wget https://cran.r-project.org/src/base/R-4/R-4.4.1.tar.gz
+	tar -xzf R-4.4.1.tar.gz
+	cd R-4.4.1 &&
+	./configure \
+	--enable-R-shlib --enable-memory-profiling --enable-R-profiling --enable-BLAS-shlib \
+	--enable-java --enable-long-double --with-blas --with-lapack &&
+	make -j 10 && make install &&
+	cd ..
+	rm -r R-4.4.*
+                  
+                  
+	# Install RStudio server manually
+	yum -y update &&
+	wget https://download2.rstudio.org/server/rhel9/x86_64/rstudio-server-rhel-2024.04.2-764-x86_64.rpm # wget https://download2.rstudio.org/server/rhel8/x86_64/rstudio-server-rhel-2024.04.1-748-x86_64.rpm
+	yum -y install rstudio-server-rhel-2024.04.2-764-x86_64.rpm # yum -y install rstudio-server-rhel-2024.04.1-748-x86_64.rpm &&
+	rm rstudio-server-rhel-2024.04.2-764-x86_64.rpm
+	  
+	# remove automatic signed out after 60 minute
+	sed -i "2i auth-stay-signed-in-days=30" /etc/rstudio/rserver.conf
+	sed -i "2i auth-timeout-minutes=0" /etc/rstudio/rserver.conf
+
+	# Install R packages
+	R -e 'install.packages(c("remotes"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	## github
+	R -e 'remotes::install_github("tobiasgf/lulu")'
+	R -e 'remotes::install_github("barkasn/fastSave")'
+	R -e 'remotes::install_github("zdk123/SpiecEasi")'
+		
+	R -e 'install.packages(c("devtools","tidyverse", "job", "car", "reshape2", "rcompanion", "DataCombine"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	R -e 'install.packages(c("lavaan", "semPlot", "semTools", "extrafont", "doParallel", "scattermore"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	R -e 'install.packages(c("ggpattern", "ggdark" , "ggrepel", "ggpubr", "RADstackshelpR"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	R -e 'install.packages(c("adegenet", "wordcloud", "bold", "taxize", "igraph", "geosphere", "geodist"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	R -e 'install.packages(c("shinydashboard", "shinycssloaders", "DT", "rsconnect", "leaflet", "leaflet.extras", "tigris"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	R -e 'remotes::install_version("iNEXT", "2.0.20", repos="https://cloud.r-project.org/")'
+			
+	## biocmanager
+	R -e 'install.packages(c("BiocManager"), repos="https://cloud.r-project.org/")'
+	R -e 'BiocManager::install(c("phyloseq", "dada2", "ANCOMBC", "philr"))'	
+	
+	R -e 'install.packages(c("phytools", "SRS", "lsmeans", "usedist"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	R -e 'install.packages(c("VennDiagram", "gridExtra", "extrafont", "showtext"), Ncpus = 8, repos="https://cloud.r-project.org/")'
+	
+  # Clean downoladed package cache.  Yes I know about /var/libs.
+  yum clean all
+	
+	
+
