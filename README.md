@@ -68,6 +68,8 @@ Open new web browser, paste localhost address from stdout, put information from 
 
 # Prepare your own SIF file
 ## Install singularity
+Refer to this [link](https://singularity-tutorial.github.io/) how to install singularity and get the source from this [github](https://github.com/sylabs/singularity)
+
 
 ## Build SIF file
 Use definition file. singularity build --fakeroot name_container.sif definition_file.def
