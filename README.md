@@ -32,7 +32,9 @@ Then open in new browser localhost:52673
 You may need to clean your temporary files by yourself:
 RStudio temporary files:        /home/user-id/tmp.vXRaSSze5c
 
-TTY detected. Printing informational message about logging configuration. Logging configuration loaded from '/etc/rstudio/logging.conf'. Logging to '/home/user-id/.local/share/rstudio/log/rserver.log'.
+TTY detected. Printing informational message about logging configuration.
+Logging configuration loaded from '/etc/rstudio/logging.conf'.
+Logging to '/home/user-id/.local/share/rstudio/log/rserver.log'.
 # Example of stout on the screen ends ====
 
 # As mention on the stdout you need to open new terminal, ssh with your user id and password
