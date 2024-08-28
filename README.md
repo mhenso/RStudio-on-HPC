@@ -4,7 +4,7 @@ Build a singularity container to run rstudio server on a high performance comput
 # SIF file
 Pre-compiled singularity image file can be dowloaded this [link](https://drive.google.com/file/d/15rOVh1zCuR8RmM1Rra1BLvKdqK6Civ2S/view?usp=sharing)
 
-# How to use Rtudio on a HPC
+# How to run Rtudio on an HPC cluster
 ## SSH
 Start by login to your HPC cluster by ssh user@domain
 
@@ -17,7 +17,7 @@ interactive -p nocona -c 8
 singularity run \
 --bind /home/user-id:/mnt/home_hpcc \
 --bind /lustre/work/user-id:/mnt/work_hpcc \
-./rstudio_centos8.sif /mnt &
+./rstudio_server.sif /mnt &
 
 # Example of stdout on the screen ----
 # INFO:    Converting SIF file to temporary sandbox...
@@ -49,20 +49,37 @@ ssh user-id@hpc.domain -L 52673:cpu-25-16.localdomain:52673 # this number will r
 ![](docs/web_browser_edited.png)
 
 # Succesful login
-Congratulation you run rstudio rserver on an HPC
+Congratulation you run rstudio rserver on an HPC cluster. 
+You can now have interactive session with the maximum number cores of a single node of an HPC, and run R parallel.
 
 ![](docs/rstudio.png)
 
+
+# How to run Rtudio on a local PC
+To run the rstudio server on local PC is similar to an HPC cluster. The only different is you dont need to run ssh.
+
+```bash
+singularity run \
+--bind /home/user-id:/mnt/home_hpcc \
+--bind /lustre/work/user-id:/mnt/work_hpcc \
+./rstudio_server.sif /mnt &
+```
+Open new web browser, paste localhost address from stdout, put information from stdout and sign in 
 
 # Prepare your own SIF file
 ## Install singularity
 
 ## Build SIF file
-Use def file, auth and ?? files to build
-singularity build --fakeroot name_container.sif definition_file.def
+Use definition file. singularity build --fakeroot name_container.sif definition_file.def
+The launch_rserver.sh and rstudio_auth.sh must be put on working directory you build your image file.
+
 ```bash
-# for example
-singularity build --fakeroot cento_rstudio.sif rserver.def
+ls -1
+# launch_rserver.sh
+# rserver_only.def
+# rstudio_auth.sh
+
+singularity build --fakeroot Cent9_rstudio_server.sif rserver_only.def
 ```
 
 
