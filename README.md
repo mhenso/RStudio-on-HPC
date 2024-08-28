@@ -15,8 +15,8 @@ interactive -p nocona -c 8
 # you need to have singularity software installed on the hpc system
 
 singularity run \
---bind /home/user_id:/mnt/home_hpcc \
---bind /lustre/work/user_id:/mnt/work_hpcc \
+--bind /home/user-id:/mnt/home_hpcc \
+--bind /lustre/work/user-id:/mnt/work_hpcc \
 ./rstudio_centos8.sif /mnt &
 
 # Example of stdout on the screen ----
