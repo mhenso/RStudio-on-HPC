@@ -41,7 +41,9 @@ Logging to '/home/user-id/.local/share/rstudio/log/rserver.log'.
 ssh user-id@hpc.domain -L 52673:cpu-25-16.localdomain:52673 # this number will randomly generated according to your node and session
 
 # after you login you need to open new web browser and use RStudio username and password from stdout
-New web browser(/docs/web_browser.png)
-Succesful login (/docs/rstudio.png)
+New web browser
+[](/docs/web_browser.png)
+Succesful login
+[](/docs/rstudio.png)
 # Congratulation you run rstudio rserver on an HPC
 ```
