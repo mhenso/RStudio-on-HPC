@@ -2,19 +2,20 @@
 Build a singularity container to run RStudio server on a high performance computing (HPC) cluster
 
 # SIF file
-Pre-compiled singularity image file can be dowloaded this [link](https://drive.google.com/file/d/15tTzy15GPCWZFIxqbT3NvQrqk9ai2E-N/view?usp=sharing)
+Pre-compiled Singularity Image Format (SIF) file can be dowloaded this [link](https://drive.google.com/file/d/15tTzy15GPCWZFIxqbT3NvQrqk9ai2E-N/view?usp=sharing)
 
 The sha256sum of Cent9_rstudio_server.sif is [here](docs/sha25sum.txt)
 
 # How to run RStudio on an HPC cluster
 ## SSH
+You need to have singularity software installed on the hpc system you access.
+
 Start by login to your HPC cluster by ssh user@domain
 
 ```bash
 ssh user-id@hpc.domain
-# do not run on the head node, you need to have interactive session
+# Please do not run on the head node, you need to have interactive session or you will get a "friendly call" from your HPC administrator.
 interactive -p nocona -c 8
-# you need to have singularity software installed on the hpc system
 
 singularity run \
 --bind /home/user-id:/mnt/home_hpcc \
@@ -85,7 +86,7 @@ Use definition file.
 
 singularity build --fakeroot name_container.sif definition_file.def
 
-The launch_rserver.sh and rstudio_auth.sh files must be placed on your working directory for you to build singularity image file.
+The launch_rserver.sh and rstudio_auth.sh files must be placed on your working directory for you to build SIF file.
 
 You can modify your HPC domain on launc_rserver.sh file.
 
