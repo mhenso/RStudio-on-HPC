@@ -2,7 +2,7 @@
 Build a singularity container to run RStudio server on a high performance computing (HPC) cluster
 
 # SIF file
-Pre-compiled Singularity Image Format (SIF) file can be dowloaded this [link](https://drive.google.com/file/d/15tTzy15GPCWZFIxqbT3NvQrqk9ai2E-N/view?usp=sharing)
+Pre-compiled Singularity Image Format (SIF) file can be dowloaded this [link](https://drive.google.com/file/d/15tTzy15GPCWZFIxqbT3NvQrqk9ai2E-N/view?usp=sharing){:target="_blank" rel="noopener"}
 
 this <a href="https://drive.google.com/file/d/15tTzy15GPCWZFIxqbT3NvQrqk9ai2E-N/view?usp=sharing" target="_blank">link</a> 
 
