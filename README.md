@@ -85,7 +85,7 @@ Use definition file.
 
 singularity build --fakeroot name_container.sif definition_file.def
 
-The launch_rserver.sh and rstudio_auth.sh must be put on working directory you build your image file.
+The launch_rserver.sh and rstudio_auth.sh files must be placed on your working directory for you to build singularity image file.
 
 You can modify your HPC domain on launc_rserver.sh file.
 
