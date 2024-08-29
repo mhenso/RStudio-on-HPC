@@ -1,12 +1,12 @@
 # RStudio_Server
-Build a singularity container to run rstudio server on a high performance computing (HPC) cluster
+Build a singularity container to run RStudio server on a high performance computing (HPC) cluster
 
 # SIF file
 Pre-compiled singularity image file can be dowloaded this [link](https://drive.google.com/file/d/15tTzy15GPCWZFIxqbT3NvQrqk9ai2E-N/view?usp=sharing)
 
 The sha256sum of Cent9_rstudio_server.sif is [here](docs/sha25sum.txt)
 
-# How to run Rtudio on an HPC cluster
+# How to run RStudio on an HPC cluster
 ## SSH
 Start by login to your HPC cluster by ssh user@domain
 
@@ -46,11 +46,11 @@ ssh user-id@hpc.domain -L 52673:cpu-25-16.localdomain:52673 # this number will r
 
 ```
 
-# New web browser
+## New web browser
 
 ![](docs/web_browser_edited.png)
 
-# Succesful login
+## Succesful login
 Congratulation you run rstudio rserver on an HPC cluster. 
 You can now have interactive session with the maximum number cores of a single node of an HPC, and run R parallel.
 
@@ -58,7 +58,8 @@ You can now have interactive session with the maximum number cores of a single n
 
 
 # How to run Rtudio on a local PC
-To run the rstudio server on local PC is similar to an HPC cluster. The only different is you dont need to run ssh.
+To run the RStudio server on a local PC is similar to an HPC cluster. The only different is you dont need to run ssh.
+Open a new terminal, run the following scripts
 
 ```bash
 singularity run \
@@ -66,12 +67,12 @@ singularity run \
 --bind /lustre/work/user-id:/mnt/work_hpcc \
 ./rstudio_server.sif /mnt &
 ```
-Open new web browser, paste localhost address from stdout, put information from stdout and sign in 
+
+Open new web browser, paste localhost address from stdout, put information from stdout and sign in. 
 
 # Prepare your own SIF file
 ## Install singularity
 Refer to this [link](https://singularity-tutorial.github.io/) how to install singularity and get the source from this [github](https://github.com/sylabs/singularity)
-
 
 ## Build SIF file
 Use definition file. singularity build --fakeroot name_container.sif definition_file.def
@@ -86,5 +87,4 @@ ls -1
 singularity build --fakeroot Cent9_rstudio_server.sif rserver_only.def
 ```
 
-
-
+It took about 1,5 hours to build the Cent9_rstudio_server.sif image file.
