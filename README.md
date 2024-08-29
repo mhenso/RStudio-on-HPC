@@ -51,14 +51,18 @@ ssh user-id@hpc.domain -L 52673:cpu-25-16.localdomain:52673 # this number will r
 ![](docs/web_browser_edited.png)
 
 ## Succesful login
-Congratulation you run rstudio rserver on an HPC cluster. 
+Congratulation you run rstudio rserver on an HPC cluster.
+
 You can now have interactive session with the maximum number cores of a single node of an HPC, and run R parallel.
 
 ![](docs/rstudio.png)
 
 
 # How to run Rtudio on a local PC
-To run the RStudio server on a local PC is similar to an HPC cluster. The only different is you dont need to run ssh.
+To run the RStudio server on a local PC is similar to an HPC cluster. 
+
+The only different is you dont need to run ssh.
+
 Open a new terminal, run the following scripts
 
 ```bash
@@ -72,11 +76,18 @@ Open new web browser, paste localhost address from stdout, put information from 
 
 # Prepare your own SIF file
 ## Install singularity
-Refer to this [link](https://singularity-tutorial.github.io/) how to install singularity and get the source from this [github](https://github.com/sylabs/singularity)
+Refer to this [link](https://singularity-tutorial.github.io/) how to install singularity and 
+
+get the source from this [github](https://github.com/sylabs/singularity)
 
 ## Build SIF file
-Use definition file. singularity build --fakeroot name_container.sif definition_file.def
+Use definition file.
+
+singularity build --fakeroot name_container.sif definition_file.def
+
 The launch_rserver.sh and rstudio_auth.sh must be put on working directory you build your image file.
+
+You can modify your HPC domain on launc_rserver.sh file.
 
 ```bash
 ls -1
