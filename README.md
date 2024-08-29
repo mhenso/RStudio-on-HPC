@@ -99,4 +99,4 @@ ls -1
 singularity build --fakeroot Cent9_rstudio_server.sif rserver_only.def
 ```
 
-It took about 1,5 hours to build the Cent9_rstudio_server.sif image file.
+It took about 1,5 hours to build the Cent9_rstudio_server.sif SIF file.
