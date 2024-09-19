@@ -1,5 +1,5 @@
 # RStudio Server
-[![](docs/rstudio_server.png)](https://posit.co/products/open-source/rstudio-server/)
+[![](docs/rstudio_server.jpg)](https://posit.co/products/open-source/rstudio-server/)
 
 Build a singularity container to run RStudio server on a high performance computing (HPC) cluster
 
